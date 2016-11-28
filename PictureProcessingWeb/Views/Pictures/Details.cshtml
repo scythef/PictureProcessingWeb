@@ -1,0 +1,132 @@
+﻿@model IEnumerable<PictureProcessingWeb.Models.PictureEntity>
+@*@model PictureProcessingWeb.Models.Picture*@
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<head>
+    <style>
+        div.img {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 180px;
+        }
+
+            div.img:hover {
+                border: 1px solid #777;
+            }
+
+            div.img img {
+                width: 100%;
+                height: auto;
+            }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<h2>@{
+    DateTime LDT = new DateTime(Model.ElementAt(0).Year, Model.ElementAt(0).Month, Model.ElementAt(0).Day, Model.ElementAt(0).Hour, Model.ElementAt(0).Minute, 0);
+    }
+    @LDT.ToLongDateString(), @LDT.ToShortTimeString(), @Model.Count() pictures
+    @*@LDT.ToString("H:m, dd.MMMM yyyy")*@
+</h2>
+
+<div>
+    
+    @*<h4>Picture</h4>
+    <hr />*@
+
+    @{
+        int Li = 0;
+        while (Li < @Model.Count())
+        //for (var i = 0; i < @Model.Count() - 1; i++)
+        {
+
+            var item = @Model.ElementAt(Li);
+
+            <div class="img">
+                <a href=@Html.DisplayFor(modelitem => item.Uri)>
+                    <img src="@item.Uri" width="300" />
+                </a>
+                <div class="desc">
+                    @{
+                        DateTime LDate = new DateTime(item.Year, item.Month, item.Day, item.Hour, item.Minute, 0);
+                    }
+                    @LDate.ToString("d.MMMM yyyy"), 
+                    @{
+                        DateTime LTime = new DateTime(item.Year, item.Month, item.Day, item.Hour, item.Minute, item.Second, item.Milisecond);
+                    }
+                    @LTime.ToString("H:m:s.ffff"), 
+                    @{
+                        string LDiff = Html.DisplayFor(modelitem => item.Diff) + "%";
+                    }
+                    @LDiff
+                </div>
+            </div>
+
+
+
+
+            @*<table >
+        <tr>
+            <td>
+                <a href=@Html.DisplayFor(modelitem => item.Uri)>
+                    <img src="@item.Uri" width="300"/>
+                </a>
+                </td>
+            <td>
+
+     <dl class="dl-horizontal">
+         <dt>
+             Date
+         </dt>
+
+         <dd>
+             @{
+                 DateTime LDate = new DateTime(item.Year, item.Month, item.Day, item.Hour, item.Minute, 0);
+             }
+             @LDate.ToString("d.MMMM yyyy")
+         </dd>
+
+        <dt>
+            Time
+        </dt>
+
+        <dd>
+            @{
+                DateTime LTime = new DateTime(item.Year, item.Month, item.Day, item.Hour, item.Minute, item.Second, item.Milisecond);
+            }
+            @LTime.ToString("H:m:s.ffff")
+        </dd>
+
+        <dt>
+            Difference
+        </dt>
+
+        <dd>
+            @{
+                string LDiff = Html.DisplayFor(modelitem => item.Diff) + "%";
+            }
+            @LDiff
+        </dd>
+
+
+    </dl>
+                </td>
+            </tr>
+        </table>*@
+    Li = Li + 1;
+        }
+        }
+
+</div>
+@*<p>*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
+    @*@Html.ActionLink("Back to List", "Index")
+</p>*@

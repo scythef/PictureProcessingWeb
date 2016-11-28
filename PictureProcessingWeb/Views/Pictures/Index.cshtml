@@ -1,0 +1,276 @@
+﻿@model IEnumerable<PictureProcessingWeb.Models.PictureEntity>
+
+@*@{
+    ViewBag.Title = "Index";
+}*@
+<head>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    @*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">*@
+
+
+    <style>
+            /*.buttonmenu{
+            background-color: Highlight;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            width: 150px;
+            height: 70px;
+            border-color: white;
+            border-style: solid;
+            border-width: 2px 0px 2px 0px;
+        }*/
+
+            /*.textvertical{
+            transform: rotate(-90deg);
+        }*/
+
+            button.buttonevent {
+                background-color: white;
+                color: Highlight;
+                text-align: center;
+                cursor: pointer;
+                height: 70px;
+                border-color: Highlight;
+                border-style: solid;
+                border-width: 1px;
+            }
+
+            button.buttonevent:hover {
+                color: black;
+            }
+
+            img.imgpicture {
+                cursor: pointer;
+                border-width: 2px 0px 2px 0px;
+            }
+
+            img.imgpicture:hover {
+                opacity:0.5;
+            }
+
+            button.buttoncircle {
+                /*border-radius: 50%;*/
+                border-color: Highlight;
+                border-style: solid;
+                border-width: 1px;
+                width: 70px;
+                height: 70px;
+                background-color: white;
+                cursor: pointer;
+                color: Highlight;
+            }
+
+            button.buttoncircle:hover {
+                color: black;
+            }
+    </style>
+</head>
+<h2>
+@{
+    DateTime LFilterDT = new DateTime(int.Parse(TempData["year"].ToString()), int.Parse(TempData["month"].ToString()), int.Parse(TempData["day"].ToString()), 0, 0, 0);
+}
+    @*<i class="material-icons" style="color:Highlight" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-1).ToString("yyyy-MM-dd") })'">arrow_back</i>*@
+@TempData["date"]
+    <br> 
+    <button type="button" class="buttoncircle" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-7).ToString("yyyy-MM-dd") })'">
+        <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button type="button" class="buttoncircle" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-1).ToString("yyyy-MM-dd") })'">
+        <i class="fa fa-angle-left"></i>
+    </button>
+    <button type="button" class="buttoncircle" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(+1).ToString("yyyy-MM-dd") })'">
+        <i class="fa fa-angle-right"></i>
+    </button>
+    <button type="button" class="buttoncircle" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(+7).ToString("yyyy-MM-dd") })'">
+        <i class="fa fa-angle-double-right"></i>
+    </button>
+</h2>
+<h3>
+    @*<button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-1).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-1).ToString("dddd") <br> @LFilterDT.AddDays(-1).ToString("MMM d")
+    </button> 
+
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-2).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-2).ToString("dddd") <br> @LFilterDT.AddDays(-2).ToString("MMM d")
+    </button>
+    
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-3).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-3).ToString("dddd") <br> @LFilterDT.AddDays(-3).ToString("MMM d")
+    </button>
+
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-4).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-4).ToString("dddd") <br> @LFilterDT.AddDays(-4).ToString("MMM d")
+    </button>
+
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-5).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-5).ToString("dddd") <br> @LFilterDT.AddDays(-5).ToString("MMM d")
+    </button>
+
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-6).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-6).ToString("dddd") <br> @LFilterDT.AddDays(-6).ToString("MMM d")
+    </button>
+
+    <button type="button" class="buttonmenu" onclick="location.href='@Url.Action("Index", "pictures", new { aPartitionKey = LFilterDT.AddDays(-7).ToString("yyyy-MM-dd") })'">
+        @LFilterDT.AddDays(-7).ToString("dddd") <br> @LFilterDT.AddDays(-7).ToString("MMM d")
+    </button>*@
+
+    @*@Html.ActionLink("Yesterday", "Index", new { aPartitionKey = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink("Today", "Index", new { aPartitionKey = DateTime.UtcNow.ToString("yyyy-MM-dd") })
+    |*@
+    @*@Html.ActionLink(LFilterDT.AddDays(-1).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-1).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-2).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-2).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-3).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-3).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-4).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-4).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-5).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-5).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-6).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-6).ToString("yyyy-MM-dd") })
+    |
+    @Html.ActionLink(LFilterDT.AddDays(-7).ToString("ddd, MMM d"), "Index", new { aPartitionKey = LFilterDT.AddDays(-7).ToString("yyyy-MM-dd") })*@
+</h3>
+<div>
+@{
+    string LLastyyyyMMddHHmm = "";
+    string LCurrentyyyyMMddHHmm = "";
+    int Li = 0;
+    while (Li < Model.Count())
+    {
+        var item = Model.ElementAt(Li);
+        LCurrentyyyyMMddHHmm = item.PartitionKey + "-" + item.Hour.ToString() + "-" + item.Minute.ToString();
+        if (LLastyyyyMMddHHmm != (LCurrentyyyyMMddHHmm))
+        {
+            LLastyyyyMMddHHmm = LCurrentyyyyMMddHHmm;
+
+            <button type="button" class="buttonevent" onclick="location.href='@Url.Action("Details", "pictures", new { id = item.PartitionKey + item.HHmm.Substring(0, 2) + item.HHmm.Substring(3, 2) })'">
+                <h4> @Html.DisplayFor(modelItem => item.HHmm).ToString() </h4>
+            </button>
+
+            //string LHHmm = "event at " + Html.DisplayFor(modelItem => item.HHmm).ToString();
+            //Html.ActionLink(LHHmm, "Details", new { id = item.PartitionKey + item.HHmm.Substring(0, 2) + item.HHmm.Substring(3, 2) });
+        }
+
+        int LPicCount = 0;
+        while ((LLastyyyyMMddHHmm == LCurrentyyyyMMddHHmm) && (Li < @Model.Count()))
+        {
+            LPicCount = LPicCount + 1;
+            if (LPicCount <= 8)
+            {
+                @*<button type="button" class="buttonevent" onclick="location.href = '@Html.DisplayFor(modelitem => item.Uri)'">
+                    <img src="@item.Uri" height="70" title="@item.Diff" />
+                </button>*@
+
+                <img class="imgpicture" src="@item.Uri" height="70" title="@item.Diff" onclick="location.href = '@Html.DisplayFor(modelitem => item.Uri)'" /> 
+
+                @*<img src="@item.Uri" height="70" title="@item.Diff" />*@
+            }
+            Li = Li + 1;
+            if (Li < @Model.Count())
+            {
+                item = @Model.ElementAt(Li);
+                LCurrentyyyyMMddHHmm = item.PartitionKey + "-" + item.Hour.ToString() + "-" + item.Minute.ToString();
+            }
+        }
+        if (LPicCount > 8)
+        {
+            LPicCount = LPicCount - 8;
+            <span>+@LPicCount...</span>
+        }
+        <br>
+    }
+}
+
+
+
+
+
+
+</div>
+
+
+
+<!--
+
+    <table @*class="table"*@>
+        <tr>
+        </tr>
+
+        @*//foreach (var item in Model)*@
+
+        @{
+            //string LLastyyyyMMddHHmm = "";
+            //string LCurrentyyyyMMddHHmm = "";
+            Li = 0;
+
+            while (Li < @Model.Count())
+            //for (var i = 0; i < @Model.Count() - 1; i++)
+            {
+
+                var item = @Model.ElementAt(Li);
+                LCurrentyyyyMMddHHmm = item.PartitionKey + "-" + item.Hour.ToString() + "-" + item.Minute.ToString();
+
+
+
+
+                <tr>
+
+                    @if (LLastyyyyMMddHHmm != (LCurrentyyyyMMddHHmm))
+                {
+                    LLastyyyyMMddHHmm = LCurrentyyyyMMddHHmm;
+
+
+                    
+
+                        <th>
+                            <h4>
+                                @{
+                                    string LHHmm = "event at " + Html.DisplayFor(modelItem => item.HHmm).ToString();
+                                }
+                                @Html.ActionLink(LHHmm, "Details", new { id = item.PartitionKey + item.HHmm.Substring(0, 2) + item.HHmm.Substring(3, 2) })
+                            </h4>
+                        </th>
+                                    }
+                </tr>
+
+                <tr>
+                    <td>
+                        @{
+                            int LPicCount = 0;
+                            while ((LLastyyyyMMddHHmm == LCurrentyyyyMMddHHmm) && (Li < @Model.Count()))
+                            {
+                                LPicCount = LPicCount + 1;
+                                if (LPicCount <= 8)
+                                {
+                                    <img src="@item.Uri" width="100" title="@item.Diff" />
+                                }
+                                Li = Li + 1;
+                                if (Li < @Model.Count())
+                                {
+                                    item = @Model.ElementAt(Li);
+                                    LCurrentyyyyMMddHHmm = item.PartitionKey + "-" + item.Hour.ToString() + "-" + item.Minute.ToString();
+                                }
+                            }
+                            if (LPicCount > 8)
+                            {
+                                LPicCount = LPicCount - 8;
+                                <p> 
+                        and @LPicCount more pictures...
+                                </p> 
+                            }
+                            }
+                    </td>
+                </tr>
+                            }
+        }
+
+
+    </table>
+
+
+    -->
